@@ -316,65 +316,65 @@ function mlmctest(pData,rngVec)
     end
 
 
-    fig1 = Figure(fontsize=24)
+    fig1 = Figure(fontsize=22)
     ax1 = Axis(fig1[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
-               xlabel = L"\epsilon",
+               xlabel = L"\varepsilon",
                xscale = log10,
                yscale = log10
                )
     
     lines!(ax1,tol, errorVecMLMC ,linewidth=2, color=:black, label=L"MLMC")
     scatterlines!(ax1,tol, errorVecMIMC ,linewidth=2, color=:black, label=L"MIMC")
-    lines!(ax1,tol, 4*tol .^2 ,linewidth=2, color=:black, linestyle=:dashdot, label=L"c \epsilon^2")
+    lines!(ax1,tol, 4*tol .^2 ,linewidth=2, color=:black, linestyle=:dashdot, label=L"c \varepsilon^2")
     leg1 = Legend(fig1[1, 1], ax1, orientation = :horizontal)
     fig1
     
     display(fig1)
 
-    fig2 = Figure(fontsize=24)
+    fig2 = Figure(fontsize=22)
     ax2 = Axis(fig2[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
-               xlabel = L"\epsilon",
+               xlabel = L"\varepsilon",
                xscale = log10,
                yscale = log10
                )
     if β1 == 2 # additive noise setting 
         
         if ν == 2 # γ=2 == β1
-            slopeTextMLMC = L"c \log(\epsilon)^2 \epsilon^{-2}";
+            slopeTextMLMC = L"c \log(\varepsilon)^2 \varepsilon^{-2}";
             slopeLineMLMC = 120*abs.(log2.(tol)).^2 .*tol.^(-2)
-            slopeTextMIMC = L"c \epsilon^{-2}";
+            slopeTextMIMC = L"c \varepsilon^{-2}";
             slopeLineMIMC = 50*(tol) .^(-2)
             
         elseif ν==4//3 # γ=3/2 < β1=2
-            slopeTextMLMC = L"c \epsilon^{-2.5}";
+            slopeTextMLMC = L"c \varepsilon^{-2.5}";
             slopeLineMLMC = 1100*tol .^(-2.5);
-            slopeTextMIMC = L"c \epsilon^{-2}";
+            slopeTextMIMC = L"c \varepsilon^{-2}";
             slopeLineMIMC = 220*(tol) .^(-2)
             
         elseif ν==1 #γ =3 < β1=2
-            slopeTextMLMC = L"c \epsilon^{-3}";
+            slopeTextMLMC = L"c \varepsilon^{-3}";
             slopeLineMLMC = 240*tol .^(-3);
-            slopeTextMIMC = L"c \log(\epsilon)^2 \epsilon^{-2}";
+            slopeTextMIMC = L"c \log(\varepsilon)^2 \varepsilon^{-2}";
             slopeLineMIMC = 100*abs.(log2.(tol)) .*tol.^(-2)
         end
     elseif β1 ==1 #multiplicative noise setting
 
         if ν == 2 # γ== 3/2 > β1 =1  (β1*ν >1)
-            slopeTextMLMC = L"c \epsilon^{-3} |\log(\epsilon)|";
+            slopeTextMLMC = L"c \varepsilon^{-3} |\log(\varepsilon)|";
             slopeLineMLMC = 300 *tol.^(-3)
-            slopeTextMIMC = L"c \epsilon^{-2} \log(\epsilon)^2";
+            slopeTextMIMC = L"c \varepsilon^{-2} \log(\varepsilon)^2";
             slopeLineMIMC = 70* log2.(tol).^2 .*(tol) .^(-2)
         elseif ν==4//3 # γ =7/8 > β1 = 1  (β1*ν >1)
-            slopeTextMLMC = L"c \epsilon^{-3.5} ";
+            slopeTextMLMC = L"c \varepsilon^{-3.5} ";
             slopeLineMLMC = 140* tol .^(-3.5);
-            slopeTextMIMC = L"c \epsilon^{-2}  \log(\epsilon)^2";
+            slopeTextMIMC = L"c \varepsilon^{-2}  \log(\varepsilon)^2";
             slopeLineMIMC = 140* log2.(tol).^2 .*(tol) .^(-2)
         elseif ν==1 # γ =2 > β1 = 1  (β1*ν ==1)
-            slopeTextMLMC = L"c \epsilon^{-4} |\log(\epsilon)|";
+            slopeTextMLMC = L"c \varepsilon^{-4} |\log(\varepsilon)|";
             slopeLineMLMC = 30* abs.(log2.(tol)) .* tol .^(-4);
-            slopeTextMIMC = L"c \epsilon^{-2}  \log(\epsilon)^4";
+            slopeTextMIMC = L"c \varepsilon^{-2}  \log(\varepsilon)^4";
             slopeLineMIMC = 100*(tol) .^(-2) .*log2.(tol).^4
         end
 
@@ -459,7 +459,7 @@ function mimcestimator(pData,rngVec, tol)
                     NFine = N[ℓ2+1]; NCoarse = N[ℓ2]; JFine = J[1]; JCoarse = J[1];
 
                 elseif ℓ2 ==0
-                    m[ℓ1+1, ℓ2+1] = 5 * m[ℓ1+1, ℓ2+1];
+                    m[ℓ1+1, ℓ2+1] = 8 * m[ℓ1+1, ℓ2+1];
                     NFine = N[1]; NCoarse = N[1]; JFine = J[ℓ1+1]; JCoarse = J[ℓ1];
                 else
                     NFine = N[ℓ2+1]; NCoarse = N[ℓ2]; JFine = J[ℓ1+1]; JCoarse = J[ℓ1];
