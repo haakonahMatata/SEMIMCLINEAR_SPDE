@@ -325,10 +325,10 @@ function mlmctest(pData,rngVec)
 
     println("Cost ratio MIMCStandard/MIMCReducedSample: ", costVecMIMC ./costVecMIMC2);
     
-    fig1 = Figure(fontsize=20)
+    fig1 = Figure(fontsize=19)
     ax1 = Axis(fig1[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
-               xlabel = L"\epsilon",
+               xlabel = L"\varepsilon",
                xscale = log10,
                yscale = log10
                )
@@ -336,25 +336,25 @@ function mlmctest(pData,rngVec)
     lines!(ax1,tol[1:length(errorVecMLMC)], errorVecMLMC, linewidth=2, color=:black, label=L"MLMC")
     scatterlines!(ax1,tol, errorVecMIMC ,linewidth=2, color=:black, markersize=14, label=L"MIMC1")
     scatterlines!(ax1,tol, errorVecMIMC2 ,marker =:cross, linewidth=2, markersize=14, color=:black, label=L"MIMC2")
-    lines!(ax1,tol, 3*tol .^2 ,linewidth=2, color=:black, linestyle=:dashdot, label=L"c \epsilon^2")
+    lines!(ax1,tol, 3*tol .^2 ,linewidth=2, color=:black, linestyle=:dashdot, label=L"\propto\varepsilon^2")
     
     leg1 = Legend(fig1[1, 1], ax1, orientation = :horizontal)
     fig1
     
     display(fig1)
 
-    fig2 = Figure(fontsize=20)
+    fig2 = Figure(fontsize=19)
     ax2 = Axis(fig2[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
-               xlabel = L"\epsilon",
+               xlabel = L"\varepsilon",
                xscale = log10,
                yscale = log10
                )
     β=2;α=1; γ= 1+2/ν;
     # restrict to test case ν = 10/9 for now
-    slopeTextMLMC = L"c \epsilon^{-3.8}";
+    slopeTextMLMC = L"\propto\varepsilon^{-3.8}";
     slopeLineMLMC = 120*tol[1:length(errorVecMLMC)] .^(-3.8);
-    slopeTextMIMC = L"c \epsilon^{-2} \log(\epsilon)^2 ";
+    slopeTextMIMC = L"\propto\varepsilon^{-2} \log(\varepsilon)^2 ";
     slopeLineMIMC = 250*log2.(tol).^2 .*tol.^(-2)
     
     lines!(ax2,tol[1:length(errorVecMLMC)], costVecMLMC ,linewidth=2, color=:black, label=L"MLMC")
@@ -449,7 +449,7 @@ function mimcestimator(pData,rngVec, tol; reducedSample=false)
                     NFine = N[ℓ2+1]; NCoarse = N[ℓ2]; JFine = J[1]; JCoarse = J[1];
 
                 elseif ℓ2 ==0
-                    m[ℓ1+1, ℓ2+1] = 5 * m[ℓ1+1, ℓ2+1];
+                    m[ℓ1+1, ℓ2+1] = 8 * m[ℓ1+1, ℓ2+1];
                     NFine = N[1]; NCoarse = N[1]; JFine = J[ℓ1+1]; JCoarse = J[ℓ1];
                 else
                     NFine = N[ℓ2+1]; NCoarse = N[ℓ2]; JFine = J[ℓ1+1]; JCoarse = J[ℓ1];
