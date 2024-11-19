@@ -18,7 +18,7 @@ using CairoMakie
 #using LaTeXStrings
 using MakieTeX
 
-parallel_procs=60;#set to number of processors on machine (if memory is an issue, you may need to use less)
+parallel_procs=10;#set to number of processors on machine (if memory is an issue, you may need to use less)
 if nprocs()<parallel_procs
     addprocs(parallel_procs-nprocs()+1);
 end
@@ -411,7 +411,7 @@ function mlmctest(pData,rngVec)
         errorVecMIMC[i] = sum( abs.(singleDifference(pseudoRefSol,estU)).^2 );
     end
 
-    fig1 = Figure(fontsize=22)
+    fig1 = Figure(fontsize=21)
     ax1 = Axis(fig1[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
                xlabel = L"\varepsilon",
@@ -427,7 +427,7 @@ function mlmctest(pData,rngVec)
     
     display(fig1)
 
-    fig2 = Figure(fontsize=22)
+    fig2 = Figure(fontsize=21)
     ax2 = Axis(fig2[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
                xlabel = L"\varepsilon",

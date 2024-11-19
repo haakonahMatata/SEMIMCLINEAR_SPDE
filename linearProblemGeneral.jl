@@ -18,7 +18,7 @@ using CairoMakie
 #using LaTeXStrings
 using MakieTeX
 
-parallel_procs=50;#set to number of processors on machine (if memory is an issue, you may need to use less)
+parallel_procs=20;#set to number of processors on machine (if memory is an issue, you may need to use less)
 if nprocs()<parallel_procs
     addprocs(parallel_procs-nprocs()+1);
 end
@@ -105,7 +105,7 @@ function main()
     #runalltests(linear_multNoiseProblem(ν=1))
 
     
-    #runalltests(linear_multNoiseProblemShifted(ν=2))
+    runalltests(linear_multNoiseProblemShifted(ν=2))
     runalltests(linear_multNoiseProblemShifted(ν=4//3))
     #runalltests(linear_multNoiseProblemShifted(ν=1))
         
@@ -316,7 +316,7 @@ function mlmctest(pData,rngVec)
     end
 
 
-    fig1 = Figure(fontsize=22)
+    fig1 = Figure(fontsize=21)
     ax1 = Axis(fig1[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
                xlabel = L"\varepsilon",
@@ -326,13 +326,13 @@ function mlmctest(pData,rngVec)
     
     lines!(ax1,tol, errorVecMLMC ,linewidth=2, color=:black, label=L"MLMC")
     scatterlines!(ax1,tol, errorVecMIMC ,linewidth=2, color=:black, label=L"MIMC")
-    lines!(ax1,tol, 4*tol .^2 ,linewidth=2, color=:black, linestyle=:dashdot, label=L"c \varepsilon^2")
+    lines!(ax1,tol, 4*tol .^2 ,linewidth=2, color=:black, linestyle=:dashdot, label=L"\propto\varepsilon^2")
     leg1 = Legend(fig1[1, 1], ax1, orientation = :horizontal)
     fig1
     
     display(fig1)
 
-    fig2 = Figure(fontsize=22)
+    fig2 = Figure(fontsize=21)
     ax2 = Axis(fig2[2, 1],
                #title = L"$L^2(\Omega,H)$ error MLMC",
                xlabel = L"\varepsilon",
@@ -342,39 +342,39 @@ function mlmctest(pData,rngVec)
     if β1 == 2 # additive noise setting 
         
         if ν == 2 # γ=2 == β1
-            slopeTextMLMC = L"c \log(\varepsilon)^2 \varepsilon^{-2}";
+            slopeTextMLMC = L"\propto\log(\varepsilon)^2 \varepsilon^{-2}";
             slopeLineMLMC = 120*abs.(log2.(tol)).^2 .*tol.^(-2)
-            slopeTextMIMC = L"c \varepsilon^{-2}";
+            slopeTextMIMC = L"\propto\varepsilon^{-2}";
             slopeLineMIMC = 50*(tol) .^(-2)
             
         elseif ν==4//3 # γ=3/2 < β1=2
-            slopeTextMLMC = L"c \varepsilon^{-2.5}";
+            slopeTextMLMC = L"\propto\varepsilon^{-2.5}";
             slopeLineMLMC = 1100*tol .^(-2.5);
-            slopeTextMIMC = L"c \varepsilon^{-2}";
+            slopeTextMIMC = L"\propto\varepsilon^{-2}";
             slopeLineMIMC = 220*(tol) .^(-2)
             
         elseif ν==1 #γ =3 < β1=2
-            slopeTextMLMC = L"c \varepsilon^{-3}";
+            slopeTextMLMC = L"\propto\varepsilon^{-3}";
             slopeLineMLMC = 240*tol .^(-3);
-            slopeTextMIMC = L"c \log(\varepsilon)^2 \varepsilon^{-2}";
+            slopeTextMIMC = L"\propto\log(\varepsilon)^2 \varepsilon^{-2}";
             slopeLineMIMC = 100*abs.(log2.(tol)) .*tol.^(-2)
         end
     elseif β1 ==1 #multiplicative noise setting
 
         if ν == 2 # γ== 3/2 > β1 =1  (β1*ν >1)
-            slopeTextMLMC = L"c \varepsilon^{-3} |\log(\varepsilon)|";
+            slopeTextMLMC = L"\propto\varepsilon^{-3} |\log(\varepsilon)|";
             slopeLineMLMC = 300 *tol.^(-3)
-            slopeTextMIMC = L"c \varepsilon^{-2} \log(\varepsilon)^2";
+            slopeTextMIMC = L"\propto\varepsilon^{-2} \log(\varepsilon)^2";
             slopeLineMIMC = 70* log2.(tol).^2 .*(tol) .^(-2)
         elseif ν==4//3 # γ =7/8 > β1 = 1  (β1*ν >1)
-            slopeTextMLMC = L"c \varepsilon^{-3.5} ";
+            slopeTextMLMC = L"\propto\varepsilon^{-3.5} ";
             slopeLineMLMC = 140* tol .^(-3.5);
-            slopeTextMIMC = L"c \varepsilon^{-2}  \log(\varepsilon)^2";
+            slopeTextMIMC = L"\propto\varepsilon^{-2}  \log(\varepsilon)^2";
             slopeLineMIMC = 140* log2.(tol).^2 .*(tol) .^(-2)
         elseif ν==1 # γ =2 > β1 = 1  (β1*ν ==1)
-            slopeTextMLMC = L"c \varepsilon^{-4} |\log(\varepsilon)|";
+            slopeTextMLMC = L"\propto\varepsilon^{-4} |\log(\varepsilon)|";
             slopeLineMLMC = 30* abs.(log2.(tol)) .* tol .^(-4);
-            slopeTextMIMC = L"c \varepsilon^{-2}  \log(\varepsilon)^4";
+            slopeTextMIMC = L"\propto\varepsilon^{-2}  \log(\varepsilon)^4";
             slopeLineMIMC = 100*(tol) .^(-2) .*log2.(tol).^4
         end
 

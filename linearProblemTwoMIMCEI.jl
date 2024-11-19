@@ -20,7 +20,7 @@ using CairoMakie
 #using LaTeXStrings
 using MakieTeX
 
-parallel_procs=80;#set to number of processors on machine (if memory is an issue, you may need to use less)
+parallel_procs=10;#set to number of processors on machine (if memory is an issue, you may need to use less)
 if nprocs()<parallel_procs
     addprocs(parallel_procs-nprocs()+1);
 end
@@ -388,7 +388,8 @@ function mimcestimator(pData,rngVec, tol; reducedSample=false)
     method =1; #method 1 == mimc
     #β1 = strong rate in time/in J
     β2 = ν; #strong rate in space/in N -- We choose μ_j = j^{-1.01} precisely to achieve β2 = κ ν = ν. 
-    β3 = 2ν-0.0001; # β3= 2ν - δ, here using with δ=0.0001, as it holds for any δ>0 for considered SPDE.
+    #β3 = 2ν-0.0001; # β3= 2ν - δ, here using with δ=0.0001, as it holds for any δ>0 for considered SPDE.
+    β3 = 2ν; 
     α1 = β1/2;
     α2 = β2/2;
     α3 = β3/2;
